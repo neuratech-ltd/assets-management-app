@@ -1,6 +1,6 @@
 'use client'
 
-import StatsCard from "@/components/dashboard/StatsCard"
+import StatsCard from '@/components/dashboard/StatsCard'
 
 export default function DashboardPage() {
   return (
@@ -14,21 +14,20 @@ export default function DashboardPage() {
             title="Total Assets"
             description="1,234"
             actionText="View Details"
-            onActionClick={() => console.log("Viewing details...")}
+            onActionClick={() => console.log('Viewing details...')}
           />
           <StatsCard
             title="Total Users"
             description="1,234"
             actionText="View Details"
-            onActionClick={() => console.log("Viewing details...")}
+            onActionClick={() => console.log('Viewing details...')}
           />
           <StatsCard
             title="Total Vendors"
             description="1,234"
             actionText="View Details"
-            onActionClick={() => console.log("Viewing details...")}
+            onActionClick={() => console.log('Viewing details...')}
           />
-         
         </div>
       </div>
     </main>

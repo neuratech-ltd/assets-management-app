@@ -4,8 +4,6 @@ import { endpoints } from '@/routes/paths'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { useQueryClient } from '@tanstack/react-query'
 
-
-
 export const useGetAssetsApi = () => {
   return useQuery({
     queryKey: ['assets'],
@@ -16,7 +14,6 @@ export const useGetAssetsApi = () => {
   })
 }
 
-
 export const useCreateAssetApi = () => {
   const queryClient = useQueryClient()
   return useMutation({
@@ -26,7 +23,6 @@ export const useCreateAssetApi = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['assets'] })
-    }
+    },
   })
-  
 }

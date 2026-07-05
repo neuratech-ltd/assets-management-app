@@ -43,6 +43,9 @@ export interface Asset {
   vendorId: number
   createdAt: string
   updatedAt: string
+  vendor?: Vendor
+  category?: AssetCategory
+  assignedTo?: User | null
 
   // // Populated when the API includes relations (e.g. ?include=vendor,category,assignedTo)
   // vendor?: Vendor

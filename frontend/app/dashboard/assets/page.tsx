@@ -42,17 +42,29 @@ export default function AssetsPage() {
             <TableBody>
               {assets.length > 0 ? (
                 assets.map((asset) => (
-                  <TableRow key={asset.id}>
+                  <TableRow
+                    key={asset.id}
+                    role="button"
+                    tabIndex={0}
+                    className="cursor-pointer hover:bg-muted/50"
+                    onClick={() => router.push(`/dashboard/assets/${asset.id}`)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        router.push(`/dashboard/assets/${asset.id}`)
+                      }
+                    }}
+                  >
                     <TableCell className="font-medium">{asset.id}</TableCell>
                     <TableCell>{asset.name}</TableCell>
                     <TableCell>{asset.description ?? '—'}</TableCell>
                     <TableCell>{asset.type ?? '—'}</TableCell>
                     <TableCell>{asset.price ?? '—'}</TableCell>
-                    <TableCell>{asset.assignedToId ?? '—'}</TableCell>
+                    <TableCell>{asset.assignedTo?.fullName ?? '—'}</TableCell>
                     <TableCell>{asset.modelNumber ?? '—'}</TableCell>
                     <TableCell>{asset.specifications ?? '—'}</TableCell>
-                    <TableCell>{asset.categoryId ?? '—'}</TableCell>
-                    <TableCell>{asset.vendorId ?? '—'}</TableCell>
+                    <TableCell>{asset.vendor?.name ?? '—'}</TableCell>
+                    <TableCell>{asset.category?.name ?? '—'}</TableCell>
                     <TableCell>
                       {asset.purchaseDate ? new Date(asset.purchaseDate).toLocaleDateString() : '—'}
                     </TableCell>

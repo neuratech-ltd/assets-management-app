@@ -22,20 +22,31 @@ export interface Asset {
 
 const getAllAssets = async () => {
   try {
-    const assets = await prisma.asset.findMany();
-    console.log("Fetched assets:", assets); // Log the fetched assets for debugging
+    const assets = await prisma.asset.findMany({
+      include: {
+        vendor: true,
+        category: true,
+        assignedTo: true,
+      },
+    });
     return assets;
+   
   }
     catch (error) {
     console.error("Error fetching assets:", error);
     throw error;
   }
 };
-
+    
 const getAssetById = async (id: number) => {
   try {
     const asset = await prisma.asset.findUnique({
         where: { id },
+        include: {
+          vendor: true,
+          category: true,
+          assignedTo: true,
+        },
     });
     return asset;
   }

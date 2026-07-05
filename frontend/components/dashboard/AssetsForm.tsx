@@ -1,21 +1,15 @@
-"use client"
+'use client'
 
-import React, { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import {
-  Field,
-  FieldGroup,
-  FieldLabel,
-  FieldError,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { Field, FieldGroup, FieldLabel, FieldError } from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
 // api/endpoints not needed here — creation handled via react-query mutation
-import { useGetCategoryApi } from "@/services/react-query/hooks/useCategoryApi"
-import { useGetUsersApi } from "@/services/react-query/hooks/useUsersApi"
-import { useGetVendorApi } from "@/services/react-query/hooks/useVendorApi"
-import { useCreateAssetApi } from "@/services/react-query/hooks/useAssetsApi"
-
+import { useGetCategoryApi } from '@/services/react-query/hooks/useCategoryApi'
+import { useGetUsersApi } from '@/services/react-query/hooks/useUsersApi'
+import { useGetVendorApi } from '@/services/react-query/hooks/useVendorApi'
+import { useCreateAssetApi } from '@/services/react-query/hooks/useAssetsApi'
 
 interface AssetForm {
   name: string
@@ -46,10 +40,9 @@ interface CreateAssetPayload {
   vendorId: number
 }
 
-const inputClass =
-  "h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-2.5 py-1 text-base shadow-xs"
+const inputClass = 'h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-2.5 py-1 text-base shadow-xs'
 
-const AddAssetsForm = () => {
+const AssetForm = () => {
   const response = useRouter()
   const { data: categories = [] } = useGetCategoryApi()
   const { data: users = [] } = useGetUsersApi()
@@ -57,19 +50,18 @@ const AddAssetsForm = () => {
 
   const createAssetMutation = useCreateAssetApi()
 
- 
   const [form, setForm] = useState<AssetForm>({
-    name: "",
-    description: "",
-    type: "",
-    price: "",
-    purchaseDate: "",
-    modelNumber: "",
-    specifications: "",
-    imageUrl: "",
-    assignedToId: "",
-    categoryId: "",
-    vendorId: "",
+    name: '',
+    description: '',
+    type: '',
+    price: '',
+    purchaseDate: '',
+    modelNumber: '',
+    specifications: '',
+    imageUrl: '',
+    assignedToId: '',
+    categoryId: '',
+    vendorId: '',
   })
 
   const [errors, setErrors] = useState<string | null>(null)
@@ -82,28 +74,27 @@ const AddAssetsForm = () => {
 
   const resetForm = () => {
     setForm({
-      name: "",
-      description: "",
-      type: "",
-      price: "",
-      purchaseDate: "",
-      modelNumber: "",
-      specifications: "",
-      imageUrl: "",
-      assignedToId: "",
-      categoryId: "",
-      vendorId: "",
+      name: '',
+      description: '',
+      type: '',
+      price: '',
+      purchaseDate: '',
+      modelNumber: '',
+      specifications: '',
+      imageUrl: '',
+      assignedToId: '',
+      categoryId: '',
+      vendorId: '',
     })
     setErrors(null)
   }
 
-const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setErrors(null)
 
     try {
-      
       if (!form.categoryId || !form.vendorId) {
         setErrors('Category and Vendor are required')
         setLoading(false)
@@ -126,9 +117,9 @@ const handleSubmit = async (e: React.FormEvent) => {
 
       await createAssetMutation.mutateAsync(payload)
       resetForm()
-      response.push("/dashboard/assets")
+      response.push('/dashboard/assets')
     } catch (error) {
-      setErrors("Failed to create asset")
+      setErrors('Failed to create asset')
     } finally {
       setLoading(false)
     }
@@ -149,7 +140,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             name="description"
             value={form.description}
             onChange={handleChange}
-            className={inputClass + " h-24 resize-y"}
+            className={inputClass + ' h-24 resize-y'}
             placeholder="Short description"
           />
         </Field>
@@ -181,32 +172,54 @@ const handleSubmit = async (e: React.FormEvent) => {
             name="specifications"
             value={form.specifications}
             onChange={handleChange}
-            className={inputClass + " h-24 resize-y"}
+            className={inputClass + ' h-24 resize-y'}
             placeholder="CPU, RAM, Storage, etc."
           />
         </Field>
 
         <Field>
           <FieldLabel htmlFor="imageUrl">Image URL</FieldLabel>
-          <Input id="imageUrl" name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="https://..." />
+          <Input
+            id="imageUrl"
+            name="imageUrl"
+            value={form.imageUrl}
+            onChange={handleChange}
+            placeholder="https://..."
+          />
         </Field>
 
         <Field>
           <FieldLabel htmlFor="assignedToId">Assign To</FieldLabel>
-          <select id="assignedToId" name="assignedToId" value={form.assignedToId} onChange={handleChange} className={inputClass}>
+          <select
+            id="assignedToId"
+            name="assignedToId"
+            value={form.assignedToId}
+            onChange={handleChange}
+            className={inputClass}
+          >
             <option value="">Unassigned</option>
             {users.map((u: any) => (
-              <option key={u.id} value={u.id}>{u.fullName ?? u.email}</option>
+              <option key={u.id} value={u.id}>
+                {u.fullName ?? u.email}
+              </option>
             ))}
           </select>
         </Field>
 
         <Field>
           <FieldLabel htmlFor="categoryId">Category</FieldLabel>
-          <select id="categoryId" name="categoryId" value={form.categoryId} onChange={handleChange} className={inputClass}>
+          <select
+            id="categoryId"
+            name="categoryId"
+            value={form.categoryId}
+            onChange={handleChange}
+            className={inputClass}
+          >
             <option value="">Select category</option>
             {categories.map((c: any) => (
-              <option key={c.id} value={c.id}>{c.name}</option>
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
             ))}
           </select>
         </Field>
@@ -216,7 +229,9 @@ const handleSubmit = async (e: React.FormEvent) => {
           <select id="vendorId" name="vendorId" value={form.vendorId} onChange={handleChange} className={inputClass}>
             <option value="">Select vendor</option>
             {vendors.map((v: any) => (
-              <option key={v.id} value={v.id}>{v.name}</option>
+              <option key={v.id} value={v.id}>
+                {v.name}
+              </option>
             ))}
           </select>
         </Field>
@@ -232,7 +247,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             Reset
           </Button>
           <Button type="submit" disabled={loading}>
-            {loading ? "Saving..." : "Create Asset"}
+            {loading ? 'Saving...' : 'Create Asset'}
           </Button>
         </Field>
       </FieldGroup>
@@ -240,4 +255,4 @@ const handleSubmit = async (e: React.FormEvent) => {
   )
 }
 
-export default AddAssetsForm
+export default AssetForm

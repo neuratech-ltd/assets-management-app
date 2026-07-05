@@ -5,13 +5,12 @@ import { useGetCategoryApi } from '@/services/react-query/hooks/useCategoryApi'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { PlusCircleIcon } from 'lucide-react'
-import {useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const CategoryPage = () => {
   const { data: categories = [], isLoading: loading, error } = useGetCategoryApi()
 
   const router = useRouter()
-  
 
   return (
     <main className="min-h-screen p-6">
