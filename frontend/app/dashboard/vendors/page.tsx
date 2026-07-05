@@ -5,16 +5,19 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useGetVendorApi } from '@/services/react-query/hooks/useVendorApi'
 import { Button } from '@/components/ui/button'
 import { PlusCircleIcon } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 const VendorsPage = () => {
   const { data: vendors = [], isLoading: loading, error } = useGetVendorApi()
+
+  const router = useRouter()
 
   return (
     <main className="min-h-screen p-6">
       <div className="mx-auto max-w-6xl space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Vendors</h1>
-          <Button>
+          <Button size="sm" onClick={() => router.push('/dashboard/vendors/new')}>
             <PlusCircleIcon /> Add new
           </Button>
         </div>

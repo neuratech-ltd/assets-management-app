@@ -5,15 +5,18 @@ import { useGetUsersApi } from '@/services/react-query/hooks/useUsersApi'
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { PlusCircleIcon } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 const UsersPage = () => {
   const { data: users = [], isLoading: loading, error } = useGetUsersApi()
+
+  const router = useRouter()
   return (
     <main className="min-h-screen p-6">
       <div className="mx-auto max-w-6xl space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Users</h1>
-          <Button>
+          <Button onClick={() => router.push('/dashboard/users/new')} size="sm">
             <PlusCircleIcon /> Add new
           </Button>
         </div>

@@ -5,16 +5,20 @@ import { useGetCategoryApi } from '@/services/react-query/hooks/useCategoryApi'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { PlusCircleIcon } from 'lucide-react'
+import {useRouter} from 'next/navigation'
 
 const CategoryPage = () => {
   const { data: categories = [], isLoading: loading, error } = useGetCategoryApi()
+
+  const router = useRouter()
+  
 
   return (
     <main className="min-h-screen p-6">
       <div className="mx-auto max-w-6xl space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Categories</h1>
-          <Button>
+          <Button size="sm" onClick={() => router.push('/dashboard/category/new')}>
             <PlusCircleIcon /> Add new
           </Button>
         </div>

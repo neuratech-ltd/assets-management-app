@@ -34,7 +34,7 @@ export interface Asset {
   description?: string | null
   type?: string | null
   price?: number | null
-  purchaseDate?: string | null
+  purchaseDate?: Date | null
   modelNumber?: string | null
   specifications?: string | null
   imageUrl?: string | null
