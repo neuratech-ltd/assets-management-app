@@ -1,8 +1,9 @@
 export const endpoints = {
   getAssets: '/assets',
   createAsset: '/assets',
-  updateAsset: (id: string) => `/assets/${id}`,
-  deleteAsset: (id: string) => `/assets/${id}`,
+  getAssetById: (id: number) => `/assets/${id}`,
+  updateAsset: (id: number) => `/assets/${id}`,
+  deleteAsset: (id: number) => `/assets/${id}`,
 
   getCategories: '/categories',
   createCategory: '/categories',

@@ -1,15 +1,14 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Field, FieldGroup, FieldLabel, FieldError } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-// api/endpoints not needed here — creation handled via react-query mutation
 import { useGetCategoryApi } from '@/services/react-query/hooks/useCategoryApi'
 import { useGetUsersApi } from '@/services/react-query/hooks/useUsersApi'
 import { useGetVendorApi } from '@/services/react-query/hooks/useVendorApi'
-import { useCreateAssetApi } from '@/services/react-query/hooks/useAssetsApi'
+import { useCreateAssetApi, useGetAssetByIdApi } from '@/services/react-query/hooks/useAssetsApi'
 
 interface AssetForm {
   name: string
@@ -25,7 +24,6 @@ interface AssetForm {
   vendorId: string
 }
 
-// Payload shape sent to the backend API (dates as Date or null)
 interface CreateAssetPayload {
   name: string
   description?: string | null
@@ -43,6 +41,11 @@ interface CreateAssetPayload {
 const inputClass = 'h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-2.5 py-1 text-base shadow-xs'
 
 const AssetForm = () => {
+  const params = useParams()
+  const id = Number(params.id)
+
+  const { data: assets } = useGetAssetByIdApi(id)
+
   const response = useRouter()
   const { data: categories = [] } = useGetCategoryApi()
   const { data: users = [] } = useGetUsersApi()
@@ -51,17 +54,17 @@ const AssetForm = () => {
   const createAssetMutation = useCreateAssetApi()
 
   const [form, setForm] = useState<AssetForm>({
-    name: '',
-    description: '',
-    type: '',
-    price: '',
-    purchaseDate: '',
-    modelNumber: '',
-    specifications: '',
-    imageUrl: '',
-    assignedToId: '',
-    categoryId: '',
-    vendorId: '',
+    name: assets?.name ?? '',
+    description: assets?.description ?? '',
+    type: assets?.type ?? '',
+    price: assets?.price ? assets.price.toString() : '',
+    purchaseDate: assets?.purchaseDate ? new Date(assets.purchaseDate).toISOString().split('T')[0] : '',
+    modelNumber: assets?.modelNumber ?? '',
+    specifications: assets?.specifications ?? '',
+    imageUrl: assets?.imageUrl ?? '',
+    assignedToId: assets?.assignedToId ? assets.assignedToId.toString() : '',
+    categoryId: assets?.categoryId ? assets.categoryId.toString() : '',
+    vendorId: assets?.vendorId ? assets.vendorId.toString() : '',
   })
 
   const [errors, setErrors] = useState<string | null>(null)

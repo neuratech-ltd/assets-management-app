@@ -14,6 +14,16 @@ export const useGetAssetsApi = () => {
   })
 }
 
+export const useGetAssetByIdApi = (id: number) => {
+  return useQuery({
+    queryKey: ['asset', id],
+    queryFn: async (): Promise<Asset> => {
+      const response = await api.get(`${endpoints.getAssetById(id)}`)
+      return response.data
+    },
+  })
+}
+
 export const useCreateAssetApi = () => {
   const queryClient = useQueryClient()
   return useMutation({
