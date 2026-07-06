@@ -1,25 +1,25 @@
 'use client'
 
 import React from 'react'
-import UserForm from '@/components/dashboard/UserForm'
+import VendorForm from '@/components/dashboard/VendorForm'
 import { Button } from '@/components/ui/button'
-import { useDeleteUserApi } from '@/services/react-query/hooks/useUsersApi'
+import { useDeleteVendorApi } from '@/services/react-query/hooks/useVendorApi'
 import { useRouter, useParams } from 'next/navigation'
 
-const UserDetails = () => {
+const VendorDetails = () => {
   const router = useRouter()
   const params = useParams()
   const id = Number(params?.id)
 
-  const deleteData = useDeleteUserApi(id)
+  const deleteData = useDeleteVendorApi(id)
 
   const handleDelete = async () => {
-    if (confirm('Are you sure you want to delete this user?')) {
+    if (confirm('Are you sure you want to delete this vendor?')) {
       try {
         await deleteData.mutateAsync()
-        router.push('/dashboard/users')
+        router.push('/dashboard/vendors')
       } catch (error) {
-        console.error('Error deleting user:', error)
+        console.error('Error deleting vendor:', error)
       }
     }
   }
@@ -28,15 +28,15 @@ const UserDetails = () => {
     <main className="min-h-screen p-6">
       <div className="mx-auto max-w-6xl space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">User Details</h1>
+          <h1 className="text-3xl font-bold">Vendor Details</h1>
           <Button variant="destructive" onClick={handleDelete}>
-            Delete User
+            Delete Vendor
           </Button>
         </div>
-        <UserForm />
+        <VendorForm />
       </div>
     </main>
   )
 }
 
-export default UserDetails
+export default VendorDetails

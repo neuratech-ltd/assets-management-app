@@ -36,7 +36,17 @@ const UsersPage = () => {
             <TableBody>
               {users.length > 0 ? (
                 users.map((user) => (
-                  <TableRow key={user.id}>
+                  <TableRow
+                    key={user.id}
+                    className="cursor-pointer hover:bg-muted/50"
+                    onClick={() => router.push(`/dashboard/users/${user.id}`)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        router.push(`/dashboard/users/${user.id}`)
+                      }
+                    }}
+                  >
                     <TableCell className="font-medium">{user.id}</TableCell>
                     <TableCell>{user.fullName}</TableCell>
                     <TableCell>{user.designation ?? '—'}</TableCell>

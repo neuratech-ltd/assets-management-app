@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useGetVendorApi } from '@/services/react-query/hooks/useVendorApi'
 import { Button } from '@/components/ui/button'
@@ -34,7 +33,17 @@ const VendorsPage = () => {
             <TableBody>
               {vendors.length > 0 ? (
                 vendors.map((vendor) => (
-                  <TableRow key={vendor.id}>
+                  <TableRow
+                    key={vendor.id}
+                    className="cursor-pointer hover:bg-muted/50"
+                    onClick={() => router.push(`/dashboard/vendors/${vendor.id}`)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        router.push(`/dashboard/vendors/${vendor.id}`)
+                      }
+                    }}
+                  >
                     <TableCell className="font-medium">{vendor.id}</TableCell>
                     <TableCell>{vendor.name}</TableCell>
                     <TableCell>{vendor.contactInfo ?? '—'}</TableCell>

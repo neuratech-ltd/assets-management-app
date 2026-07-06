@@ -5,7 +5,7 @@ export interface User {
   email: string
   fullName: string
   designation: string
-  joiningDate: string
+  joiningDate: Date | null
   employeeId: string
   createdAt: string
   updatedAt: string

@@ -11,7 +11,6 @@ interface Vendor {
 const getAllVendors = async () => {
   try {
     const vendors = await prisma.vendor.findMany();
-    console.log("Fetched vendors:", vendors); // Log the fetched vendors for debugging
     return vendors;
   } catch (error) {
     console.error("Error fetching vendors:", error);

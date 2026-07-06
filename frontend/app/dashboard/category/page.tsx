@@ -34,7 +34,17 @@ const CategoryPage = () => {
             <TableBody>
               {categories.length > 0 ? (
                 categories.map((category) => (
-                  <TableRow key={category.id}>
+                  <TableRow
+                    key={category.id}
+                    className="cursor-pointer hover:bg-muted/50"
+                    onClick={() => router.push(`/dashboard/category/${category.id}`)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        router.push(`/dashboard/category/${category.id}`)
+                      }
+                    }}
+                  >
                     <TableCell className="font-medium">{category.id}</TableCell>
                     <TableCell>{category.name}</TableCell>
                     <TableCell>{category.description ?? '—'}</TableCell>

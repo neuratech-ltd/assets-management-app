@@ -11,7 +11,6 @@ interface AssetCategory {
 const getAllCategories = async () => {
   try {
     const categories = await prisma.assetCategory.findMany();
-    console.log("Fetched categories:", categories); // Log the fetched categories for debugging
     return categories;
   } catch (error) {
     console.error("Error fetching categories:", error);
