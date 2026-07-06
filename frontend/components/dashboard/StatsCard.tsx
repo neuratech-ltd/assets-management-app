@@ -5,11 +5,10 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 interface StatsCardProps {
   title: string
   description: string
-  actionText: string
   onActionClick: () => void
 }
 
-const StatsCard = ({ title, description, actionText, onActionClick }: StatsCardProps) => {
+const StatsCard = ({ title, description, onActionClick }: StatsCardProps) => {
   return (
     <Card
       size="sm"
@@ -21,11 +20,11 @@ const StatsCard = ({ title, description, actionText, onActionClick }: StatsCardP
       <CardContent>
         <p>{description}</p>
       </CardContent>
-      {/* <CardFooter>
-        <Button variant="outline" size="sm" className="w-full" onClick={onActionClick}>
-          {actionText}
+      <CardFooter>
+        <Button variant="outline" size="sm" className="w-full text-black" onClick={onActionClick}>
+          See All
         </Button>
-      </CardFooter> */}
+      </CardFooter>
     </Card>
   )
 }

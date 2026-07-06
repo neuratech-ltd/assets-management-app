@@ -34,3 +34,26 @@ export const createUser = async (req: any, res: any) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const updateUser = async (req: any, res: any) => {
+  const { id } = req.params;
+  const userData = req.body;
+  try {
+    const user = await userService.updateUser(parseInt(id), userData);
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const deleteUser = async (req: any, res: any) => {
+  const { id } = req.params;
+  try {
+    const user = await userService.deleteUser(parseInt(id));
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

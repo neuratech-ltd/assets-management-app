@@ -1,5 +1,4 @@
-import {prisma} from "../../lib/prisma"
-
+import { prisma } from "../../lib/prisma";
 
 interface AssetCategory {
   id: number;
@@ -9,14 +8,12 @@ interface AssetCategory {
   updatedAt: Date;
 }
 
-
 const getAllCategories = async () => {
   try {
     const categories = await prisma.assetCategory.findMany();
     console.log("Fetched categories:", categories); // Log the fetched categories for debugging
     return categories;
-  }
-    catch (error) {
+  } catch (error) {
     console.error("Error fetching categories:", error);
     throw error;
   }
@@ -25,31 +22,59 @@ const getAllCategories = async () => {
 const getCategoryById = async (id: number) => {
   try {
     const category = await prisma.assetCategory.findUnique({
-        where: { id },
+      where: { id },
     });
     return category;
-  }
-    catch (error) {
+  } catch (error) {
     console.error("Error fetching category:", error);
     throw error;
   }
 };
 
 const createCategory = async (categoryData: AssetCategory) => {
-    try {
-        const newCategory = await prisma.assetCategory.create({
-            data: categoryData,
-        });
-        return newCategory;
-    }
-    catch (error) {
-        console.error("Error creating category:", error);
-        throw error;
-    }
-}
+  try {
+    const newCategory = await prisma.assetCategory.create({
+      data: categoryData,
+    });
+    return newCategory;
+  } catch (error) {
+    console.error("Error creating category:", error);
+    throw error;
+  }
+};
+
+const updateCategory = async (
+  id: number,
+  categoryData: Partial<AssetCategory>,
+) => {
+  try {
+    const updatedCategory = await prisma.assetCategory.update({
+      where: { id },
+      data: categoryData,
+    });
+    return updatedCategory;
+  } catch (error) {
+    console.error("Error updating category:", error);
+    throw error;
+  }
+};
+
+const deleteCategory = async (id: number) => {
+  try {
+    const deletedCategory = await prisma.assetCategory.delete({
+      where: { id },
+    });
+    return deletedCategory;
+  } catch (error) {
+    console.error("Error deleting category:", error);
+    throw error;
+  }
+};
 
 export {
   getAllCategories,
   getCategoryById,
-  createCategory
+  createCategory,
+  updateCategory,
+  deleteCategory,
 };
