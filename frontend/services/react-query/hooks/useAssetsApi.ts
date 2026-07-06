@@ -36,3 +36,30 @@ export const useCreateAssetApi = () => {
     },
   })
 }
+
+export const useUpdateAssetApi = (id: number) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (assetData: Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>): Promise<Asset> => {
+      const response = await api.put(endpoints.updateAsset(id), assetData)
+      return response.data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['assets'] })
+      queryClient.invalidateQueries({ queryKey: ['asset', id] })
+    },
+  })
+}
+
+export const useDeleteAssetApi = (id: number) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (): Promise<void> => {
+      await api.delete(endpoints.deleteAsset(id))
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['assets'] })
+      queryClient.invalidateQueries({ queryKey: ['asset', id] })
+    },
+  })
+}
