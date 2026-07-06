@@ -1,7 +1,7 @@
 import AssetForm from '@/components/dashboard/AssetsForm'
 import React from 'react'
 
-const page = () => {
+const NewPage = () => {
   return (
     <main className="min-h-screen p-6">
       <div className="mx-auto max-w-6xl space-y-6">
@@ -12,4 +12,4 @@ const page = () => {
   )
 }
 
-export default page
+export default NewPage

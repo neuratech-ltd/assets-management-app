@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { useDeleteAssetApi } from '@/services/react-query/hooks/useAssetsApi'
 import { useRouter, useParams } from 'next/navigation'
 
-const page = () => {
+const AssetDetails = () => {
   const router = useRouter()
   const params = useParams()
 
@@ -40,4 +40,4 @@ const page = () => {
   )
 }
 
-export default page
+export default AssetDetails
