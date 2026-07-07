@@ -11,12 +11,27 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
+import { useLogoutApi } from '@/services/react-query/hooks/useAuthApi'
+import { useRouter } from 'next/navigation'
 
 export function NavUser({ user }: { user: { name: string; email: string } }) {
   const initials = user.name
     .split(' ')
     .map((n) => n[0])
     .join('')
+
+  const router = useRouter()
+  const logout = useLogoutApi()
+
+  const handleLogout = async () => {
+    try {
+      await logout.mutateAsync()
+      router.push('/login')
+      router.refresh() // forces middleware to re-check auth on next navigation
+    } catch (error) {
+      console.error('Logout failed:', error)
+    }
+  }
 
   return (
     <SidebarMenu>
@@ -40,7 +55,7 @@ export function NavUser({ user }: { user: { name: string; email: string } }) {
               Account
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
               Log out
             </DropdownMenuItem>

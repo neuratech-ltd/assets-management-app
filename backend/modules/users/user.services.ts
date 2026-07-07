@@ -1,4 +1,5 @@
 import { prisma } from "../../lib/prisma";
+import bcrypt from "bcrypt";
 
 interface User {
   id: number;
@@ -42,10 +43,15 @@ const createUser = async (userData: Partial<User>) => {
         : (userData.joiningDate as Date)
       : new Date();
 
+    if (!userData.password || userData.password.trim() === "") {
+      throw new Error("Password is required");
+    }
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+
     const data = {
       email: userData.email!,
       fullName: userData.fullName!,
-      password: (userData as any).password || `changeme-${Date.now()}`,
+      password: hashedPassword,
       designation: userData.designation ?? "",
       joiningDate,
       employeeId: userData.employeeId || `emp-${Date.now()}`,
@@ -67,6 +73,13 @@ const updateUser = async (id: number, userData: Partial<User>) => {
         ? new Date(userData.joiningDate)
         : null;
     }
+
+    if (userData.password && userData.password.trim() !== "") {
+      data.password = await bcrypt.hash(data.password, 10);
+    } else {
+      delete data.password; // don't overwrite with blank
+    }
+
     const updatedUser = await prisma.user.update({
       where: { id },
       data,

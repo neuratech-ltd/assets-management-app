@@ -16,6 +16,11 @@ const schema = yup.object({
   designation: yup.string().nullable(),
   employeeId: yup.string().nullable(),
   joiningDate: yup.date().nullable(),
+  password: yup.string().when('$isEdit', {
+    is: true,
+    then: (s) => s.notRequired(), // optional on edit — blank means "don't change"
+    otherwise: (s) => s.required('Password is required'),
+  }),
 })
 
 type UserFormValues = {
@@ -24,6 +29,7 @@ type UserFormValues = {
   designation?: string | null
   employeeId?: string | null
   joiningDate?: Date | null
+  password?: string
 }
 
 const inputClass = 'h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-2.5 py-1 text-base shadow-xs'
@@ -41,7 +47,7 @@ const UserForm = () => {
     // @ts-ignore
     resolver: yupResolver(schema),
 
-    defaultValues: { fullName: '', email: '', designation: '', employeeId: '', joiningDate: null },
+    defaultValues: { fullName: '', email: '', designation: '', employeeId: '', joiningDate: null, password: '' },
   })
 
   useEffect(() => {
@@ -52,6 +58,7 @@ const UserForm = () => {
         designation: user.designation ?? '',
         employeeId: user.employeeId ?? '',
         joiningDate: user.joiningDate ? new Date(user.joiningDate) : null,
+        password: '',
       })
     }
   }, [user, reset])
@@ -64,6 +71,7 @@ const UserForm = () => {
         designation: data.designation ?? null,
         employeeId: data.employeeId ?? null,
         joiningDate: data.joiningDate ?? null,
+        password: data.password ?? null,
       }
 
       if (user) {
@@ -122,6 +130,14 @@ const UserForm = () => {
           {formState.errors.joiningDate && (
             <FieldError className="text-sm text-red-500">{String(formState.errors.joiningDate.message)}</FieldError>
           )}
+        </Field>
+        <Field>
+          <FieldLabel className="block text-sm font-medium">Password</FieldLabel>
+          <Input className={inputClass} type="password" {...register('password')} />
+          {formState.errors.password && (
+            <FieldError className="text-sm text-red-500">{String(formState.errors.password.message)}</FieldError>
+          )}
+          {user && <p className="text-xs text-muted-foreground">Leave blank to keep current password</p>}
         </Field>
         <Field>
           <Button type="submit">{user ? 'Update User' : 'Create User'}</Button>

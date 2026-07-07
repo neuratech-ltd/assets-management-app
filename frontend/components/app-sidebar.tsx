@@ -1,21 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import {
-  ChevronDown,
-  ChevronsUpDown,
-  Home,
-  Inbox,
-  Plus,
-  Settings,
-  BarChart3,
-  FolderKanban,
-  FileText,
-  Users,
-} from 'lucide-react'
+import { Settings } from 'lucide-react'
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import {
   Sidebar,
   SidebarContent,
@@ -28,18 +15,18 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarRail,
 } from '@/components/ui/sidebar'
 import { NavUser } from '@/components/nav-user'
 
 import { siteMap } from '@/components/layout/sitemap'
+import { useMeApi } from '@/services/react-query/hooks/useAuthApi'
 
 const workspaces = [{ name: 'NeuraTech Ltd' }]
 
 export function AppSidebar() {
+  const me = useMeApi()
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -60,7 +47,7 @@ export function AppSidebar() {
               {siteMap.map((item, index) => (
                 <SidebarMenuItem key={index}>
                   <SidebarMenuButton onClick={() => (window.location.href = item.href)}>
-                    {/* <item.icon /> */}
+                    <item.icon />
                     <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -72,15 +59,15 @@ export function AppSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            {/* <SidebarMenuButton asChild>
               <a href="#settings">
                 <Settings />
                 <span>Settings</span>
               </a>
-            </SidebarMenuButton>
+            </SidebarMenuButton> */}
           </SidebarMenuItem>
         </SidebarMenu>
-        <NavUser user={{ name: 'Jordan Lee', email: 'jordan@acme.com' }} />
+        <NavUser user={{ name: me.data?.fullName || 'Admin User', email: me.data?.email || 'admin@user.com' }} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

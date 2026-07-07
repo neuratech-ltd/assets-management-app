@@ -1,11 +1,13 @@
 import express from "express";
 import { prisma } from "./lib/prisma";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app: express.Application = express();
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // Middleware
+app.use(cookieParser()); // <-- add this
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
