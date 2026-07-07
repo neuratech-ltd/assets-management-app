@@ -13,58 +13,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  fullName  String
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String?  @default("")
+  fullName    String
   designation String
   joiningDate DateTime
-  employeeId String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  employeeId  String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  assets    Asset[] 
+  assets Asset[]
 }
 
 model AssetCategory {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
   description String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  assets    Asset[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  assets      Asset[]
 }
 
 model Asset {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String?
-  type        String?
-  price       Float?
-  purchaseDate DateTime?
-  modelNumber String?
+  id             Int           @id @default(autoincrement())
+  name           String
+  description    String?
+  type           String?
+  price          Float?
+  purchaseDate   DateTime?
+  modelNumber    String?
   specifications String?
-  imageUrl    String?
-  assignedToId Int?
-  categoryId  Int
-  vendorId    Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  vendor      vendor   @relation(fields: [vendorId], references: [id])
-  category    AssetCategory @relation(fields: [categoryId], references: [id])
-  assignedTo  User?    @relation(fields: [assignedToId], references: [id])
-
+  imageUrl       String?
+  assignedToId   Int?
+  categoryId     Int
+  vendorId       Int
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  vendor         vendor        @relation(fields: [vendorId], references: [id])
+  category       AssetCategory @relation(fields: [categoryId], references: [id])
+  assignedTo     User?         @relation(fields: [assignedToId], references: [id])
 }
 
 model vendor {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
   contactInfo String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  assets    Asset[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  assets      Asset[]
 }
-
-

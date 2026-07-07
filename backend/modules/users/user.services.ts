@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 interface User {
   id: number;
   email: string;
-  password: string;
+  password?: string;
   fullName: string;
   designation: string;
   joiningDate: Date;
@@ -43,10 +43,10 @@ const createUser = async (userData: Partial<User>) => {
         : (userData.joiningDate as Date)
       : new Date();
 
-    if (!userData.password || userData.password.trim() === "") {
-      throw new Error("Password is required");
-    }
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
+    // if (!userData.password || userData.password.trim() === "") {
+    //   throw new Error("Password is required");
+    // }
+    const hashedPassword = await bcrypt.hash(userData.password || "", 10);
 
     const data = {
       email: userData.email!,

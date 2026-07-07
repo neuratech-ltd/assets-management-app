@@ -194,12 +194,17 @@ const AssetForm = () => {
         </Field>
 
         <Field>
-          <FieldLabel htmlFor="purchaseDate">Purchase Date</FieldLabel>
+          <FieldLabel htmlFor="purchaseDate">
+            Purchase Date : {assets?.purchaseDate ? new Date(assets.purchaseDate).toLocaleDateString() : '—'}
+          </FieldLabel>
           <Input
             id="purchaseDate"
             type="date"
-            {...register('purchaseDate', { setValueAs: (value) => (value ? new Date(value) : null) })}
+            {...register('purchaseDate', {
+              setValueAs: (value) => (value ? new Date(value) : null),
+            })}
           />
+
           {errors.purchaseDate && <FieldError>{errors.purchaseDate.message}</FieldError>}
         </Field>
 

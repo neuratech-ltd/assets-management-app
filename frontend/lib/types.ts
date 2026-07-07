@@ -7,9 +7,9 @@ export interface User {
   designation: string
   joiningDate: Date | null
   employeeId: string
+  password?: string // Optional because we don't want to expose it in API responses
   createdAt: string
   updatedAt: string
-  // password is intentionally omitted — never send/receive it in list/read responses
 }
 
 export interface AssetCategory {

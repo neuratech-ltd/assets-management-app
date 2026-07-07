@@ -16,11 +16,7 @@ const schema = yup.object({
   designation: yup.string().nullable(),
   employeeId: yup.string().nullable(),
   joiningDate: yup.date().nullable(),
-  password: yup.string().when('$isEdit', {
-    is: true,
-    then: (s) => s.notRequired(), // optional on edit — blank means "don't change"
-    otherwise: (s) => s.required('Password is required'),
-  }),
+  password: yup.string().notRequired(),
 })
 
 type UserFormValues = {
@@ -121,7 +117,9 @@ const UserForm = () => {
         </Field>
 
         <Field>
-          <FieldLabel className="block text-sm font-medium">Joining Date</FieldLabel>
+          <FieldLabel className="block text-sm font-medium">
+            Joining Date : {user?.joiningDate ? new Date(user.joiningDate).toLocaleDateString() : '—'}
+          </FieldLabel>
           <Input
             className={inputClass}
             {...register('joiningDate', { setValueAs: (value) => (value ? new Date(value) : null) })}
