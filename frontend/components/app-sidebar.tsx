@@ -34,7 +34,7 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-primary-foreground">
-              <img src={logo.src} alt="Neuratech Limited" className="h-7 w-7 ml-1" />
+              <img src={logo.src} alt="Neuratech Limited" className="h-7 w-7 ml" />
             </div>
           </SidebarMenuItem>
         </SidebarMenu>
