@@ -9,15 +9,32 @@ import { Button } from '@/components/ui/button'
 import { useGetVendorByIdApi, useCreateVendorApi, useUpdateVendorApi } from '@/services/react-query/hooks/useVendorApi'
 import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field'
 import { Input } from '../ui/input'
+import { Asset } from '@/lib/types'
 
 const schema = yup.object({
   name: yup.string().required('Name is required'),
   contactInfo: yup.string().nullable(),
+  assets: yup.array().of(
+    yup.object({
+      id: yup.number().required(),
+      name: yup.string().required(),
+      type: yup.string().nullable(),
+      price: yup.number().nullable(),
+      purchaseDate: yup.date().nullable(),
+      modelNumber: yup.string().nullable(),
+      specifications: yup.string().nullable(),
+      imageUrl: yup.string().nullable(),
+      assignedToId: yup.number().nullable(),
+      categoryId: yup.number().required(),
+      vendorId: yup.number().required(),
+    }),
+  ),
 })
 
 type VendorFormValues = {
   name: string
   contactInfo?: string | null
+  assets?: Asset[]
 }
 
 const inputClass = 'h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-2.5 py-1 text-base shadow-xs'
@@ -34,7 +51,7 @@ const VendorForm = () => {
   const { reset, register, handleSubmit, formState } = useForm<VendorFormValues>({
     // @ts-ignore
     resolver: yupResolver(schema),
-    defaultValues: { name: '', contactInfo: '' },
+    defaultValues: { name: '', contactInfo: '', assets: [] },
   })
 
   useEffect(() => {
@@ -76,6 +93,24 @@ const VendorForm = () => {
         </Field>
 
         <Field>
+          <FieldLabel className="block text-sm font-medium">Vendor products</FieldLabel>
+          {(vendor?.assets?.length ?? 0) > 0 ? (
+            <div className="flex flex-row flex-wrap gap-2">
+              {vendor?.assets?.map((asset) => (
+                <div key={asset.id} className="border rounded-md p-4">
+                  <h3 className="font-semibold">{asset.name}</h3>
+                  <p className="text-sm text-muted-foreground">{asset.description}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-md border border-dashed border-border bg-muted/30 px-4 py-3">
+              <p className="text-sm text-muted-foreground">No products purchased from this vendor yet.</p>
+            </div>
+          )}
+        </Field>
+
+        <Field orientation="horizontal">
           <Button type="submit">{vendor ? 'Update Vendor' : 'Create Vendor'}</Button>
         </Field>
       </FieldGroup>

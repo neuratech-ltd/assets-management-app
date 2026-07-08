@@ -10,6 +10,7 @@ export interface User {
   password?: string // Optional because we don't want to expose it in API responses
   createdAt: string
   updatedAt: string
+  assets?: Asset[]
 }
 
 export interface AssetCategory {
@@ -26,6 +27,7 @@ export interface Vendor {
   contactInfo?: string | null
   createdAt: string
   updatedAt: string
+  assets?: Asset[]
 }
 
 export interface Asset {

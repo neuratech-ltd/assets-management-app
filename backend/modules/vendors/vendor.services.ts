@@ -22,6 +22,9 @@ const getVendorById = async (id: number) => {
   try {
     const vendor = await prisma.vendor.findUnique({
       where: { id },
+      include: {
+        assets: true,
+      },
     });
     return vendor;
   } catch (error) {

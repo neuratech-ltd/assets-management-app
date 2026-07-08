@@ -79,7 +79,7 @@ const CategoryForm = () => {
           )}
         </Field>
 
-        <Field>
+        <Field orientation="horizontal">
           <Button type="submit">{category ? 'Update Category' : 'Create Category'}</Button>
         </Field>
       </FieldGroup>

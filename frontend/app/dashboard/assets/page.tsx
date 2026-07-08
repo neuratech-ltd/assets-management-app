@@ -28,12 +28,9 @@ export default function AssetsPage() {
               <TableRow>
                 <TableHead className="w-20">ID</TableHead>
                 <TableHead>Name</TableHead>
-                <TableHead>Details</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Price</TableHead>
                 <TableHead>Assigned To</TableHead>
-                <TableHead>Model Number</TableHead>
-                <TableHead>Specification</TableHead>
                 <TableHead>Category</TableHead>
                 <TableHead>Vendor</TableHead>
                 <TableHead>Purchase Date</TableHead>
@@ -57,12 +54,9 @@ export default function AssetsPage() {
                   >
                     <TableCell className="font-medium">{asset.id}</TableCell>
                     <TableCell>{asset.name}</TableCell>
-                    <TableCell>{asset.description ?? '—'}</TableCell>
                     <TableCell>{asset.type ?? '—'}</TableCell>
                     <TableCell>{asset.price ?? '—'}</TableCell>
                     <TableCell>{asset.assignedTo?.fullName ?? '—'}</TableCell>
-                    <TableCell>{asset.modelNumber ?? '—'}</TableCell>
-                    <TableCell>{asset.specifications ?? '—'}</TableCell>
                     <TableCell>{asset.category?.name ?? '—'}</TableCell>
                     <TableCell>{asset.vendor?.name ?? '—'}</TableCell>
                     <TableCell>
