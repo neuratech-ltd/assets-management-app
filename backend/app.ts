@@ -3,11 +3,23 @@ import { prisma } from "./lib/prisma";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-const app: express.Application = express();
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+const allowedOrigins = ["http://localhost:3000", "http://192.168.68.125:3000"];
 
-// Middleware
-app.use(cookieParser()); // <-- add this
+const app: express.Application = express();
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  }),
+);
+
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

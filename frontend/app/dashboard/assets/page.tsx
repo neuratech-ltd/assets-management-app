@@ -63,8 +63,8 @@ export default function AssetsPage() {
                     <TableCell>{asset.assignedTo?.fullName ?? '—'}</TableCell>
                     <TableCell>{asset.modelNumber ?? '—'}</TableCell>
                     <TableCell>{asset.specifications ?? '—'}</TableCell>
-                    <TableCell>{asset.vendor?.name ?? '—'}</TableCell>
                     <TableCell>{asset.category?.name ?? '—'}</TableCell>
+                    <TableCell>{asset.vendor?.name ?? '—'}</TableCell>
                     <TableCell>
                       {asset.purchaseDate ? new Date(asset.purchaseDate).toLocaleDateString() : '—'}
                     </TableCell>
