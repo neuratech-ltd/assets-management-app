@@ -30,7 +30,6 @@ export default function AssetsPage() {
                 <TableHead>Name</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Price</TableHead>
-                <TableHead>Assigned To</TableHead>
                 <TableHead>Category</TableHead>
                 <TableHead>Vendor</TableHead>
                 <TableHead>Purchase Date</TableHead>
@@ -56,7 +55,6 @@ export default function AssetsPage() {
                     <TableCell>{asset.name}</TableCell>
                     <TableCell>{asset.type ?? '—'}</TableCell>
                     <TableCell>{asset.price ?? '—'}</TableCell>
-                    <TableCell>{asset.assignedTo?.fullName ?? '—'}</TableCell>
                     <TableCell>{asset.category?.name ?? '—'}</TableCell>
                     <TableCell>{asset.vendor?.name ?? '—'}</TableCell>
                     <TableCell>

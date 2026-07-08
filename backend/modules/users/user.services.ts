@@ -28,7 +28,9 @@ const getUserById = async (id: number) => {
     const user = await prisma.user.findUnique({
       where: { id },
       include: {
-        assets: true,
+        assetAssignments: {
+          include: { asset: true },
+        },
       },
     });
     return user;

@@ -7,10 +7,10 @@ export interface User {
   designation: string
   joiningDate: Date | null
   employeeId: string
-  password?: string // Optional because we don't want to expose it in API responses
+  password?: string
   createdAt: string
   updatedAt: string
-  assets?: Asset[]
+  assetAssignments?: AssetAssignment[]
 }
 
 export interface AssetCategory {
@@ -36,21 +36,37 @@ export interface Asset {
   description?: string | null
   type?: string | null
   price?: number | null
+  quantity?: number | null
   purchaseDate?: Date | null
   modelNumber?: string | null
   specifications?: string | null
   imageUrl?: string | null
-  assignedToId?: number | null
   categoryId: number
   vendorId: number
   createdAt: string
   updatedAt: string
+
   vendor?: Vendor
   category?: AssetCategory
-  assignedTo?: User | null
+  assignments?: AssetAssignment[]
+}
 
-  // // Populated when the API includes relations (e.g. ?include=vendor,category,assignedTo)
-  // vendor?: Vendor
-  // category?: AssetCategory
-  // assignedTo?: User | null
+export interface AssetAssignment {
+  id: number
+  assetId: number
+  userId: number
+  assignedAt: string
+  returnedAt?: string | null
+  createdAt: string
+  updatedAt: string
+
+  asset?: Asset
+  user?: User
+}
+
+export interface AssetInput extends Omit<
+  Asset,
+  'id' | 'createdAt' | 'updatedAt' | 'vendor' | 'category' | 'assignments'
+> {
+  assignedUserIds?: number[]
 }
