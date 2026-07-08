@@ -4,7 +4,7 @@ import React, { useMemo, useState } from 'react'
 import { useGetAssetsApi } from '@/services/react-query/hooks/useAssetsApi'
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
-import { PlusCircleIcon } from 'lucide-react'
+import { ArrowLeftIcon, PlusCircleIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { Field } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
@@ -31,9 +31,14 @@ export default function AssetsPage() {
 
   return (
     <main className="min-h-screen p-6">
-      <div className="mx-auto max-w-6xl space-y-6">
+      <div className="mx-auto max-w-6xl  space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Assets</h1>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" onClick={() => router.push('/dashboard')}>
+              <ArrowLeftIcon /> Back
+            </Button>
+          </div>
+
           <Field className="w-full max-w-xl" orientation="horizontal">
             <Input
               type="search"

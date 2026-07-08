@@ -4,7 +4,7 @@ import React from 'react'
 import { useGetCategoryApi } from '@/services/react-query/hooks/useCategoryApi'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
-import { PlusCircleIcon } from 'lucide-react'
+import { ArrowLeftIcon, PlusCircleIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 const CategoryPage = () => {
@@ -16,7 +16,11 @@ const CategoryPage = () => {
     <main className="min-h-screen p-6">
       <div className="mx-auto max-w-6xl space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Categories</h1>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" onClick={() => router.push('/dashboard')}>
+              <ArrowLeftIcon /> Back
+            </Button>
+          </div>
           <Button size="sm" onClick={() => router.push('/dashboard/category/new')}>
             <PlusCircleIcon /> Add new
           </Button>

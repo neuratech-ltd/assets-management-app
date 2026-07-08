@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { useMeApi } from '@/services/react-query/hooks/useAuthApi'
+import logo from '@/assets/logo/Website-Logo-NeuraTech-Ltd.png'
 
 export default function Home() {
   const router = useRouter()
@@ -10,7 +11,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="w-full flex-col items-center justify-between px-16 py-32 text-center dark:bg-black sm:items-start">
+      <img src={logo.src} alt="Neuratech Limited" className="mb-8" width={300} height={300} />
+      <main className="w-full flex-col items-center justify-between px-16 text-center dark:bg-black sm:items-start">
         <h1 className="mb-4 text-3xl font-bold">Welcome to the Asset Management System of Neuratech Limited!</h1>
 
         {isLoading ? (

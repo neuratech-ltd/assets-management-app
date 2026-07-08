@@ -21,6 +21,7 @@ import { NavUser } from '@/components/nav-user'
 
 import { siteMap } from '@/components/layout/sitemap'
 import { useMeApi } from '@/services/react-query/hooks/useAuthApi'
+import logo from '@/assets/logo/logo.png'
 
 const workspaces = [{ name: 'NeuraTech Ltd' }]
 
@@ -32,8 +33,8 @@ export function AppSidebar() {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <span className="text-sm font-semibold">{workspaces[0].name.charAt(0)}</span>
+            <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-primary-foreground">
+              <img src={logo.src} alt="Neuratech Limited" className="h-7 w-7 ml-1" />
             </div>
           </SidebarMenuItem>
         </SidebarMenu>

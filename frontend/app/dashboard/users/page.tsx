@@ -4,7 +4,7 @@ import React from 'react'
 import { useGetUsersApi } from '@/services/react-query/hooks/useUsersApi'
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
-import { PlusCircleIcon } from 'lucide-react'
+import { ArrowLeftIcon, PlusCircleIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 const UsersPage = () => {
@@ -15,7 +15,11 @@ const UsersPage = () => {
     <main className="min-h-screen p-6">
       <div className="mx-auto max-w-6xl space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Users</h1>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" onClick={() => router.push('/dashboard')}>
+              <ArrowLeftIcon /> Back
+            </Button>
+          </div>
           <Button onClick={() => router.push('/dashboard/users/new')} size="sm">
             <PlusCircleIcon /> Add new
           </Button>
