@@ -1,5 +1,5 @@
 import { api } from '@/lib/api'
-import { Asset } from '@/lib/types'
+import { Asset, AssetInput } from '@/lib/types'
 import { endpoints } from '@/routes/paths'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { useQueryClient } from '@tanstack/react-query'
@@ -27,7 +27,7 @@ export const useGetAssetByIdApi = (id: number) => {
 export const useCreateAssetApi = () => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: async (assetData: Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>): Promise<Asset> => {
+    mutationFn: async (assetData: AssetInput): Promise<Asset> => {
       const response = await api.post(endpoints.createAsset, assetData)
       return response.data
     },
@@ -40,7 +40,7 @@ export const useCreateAssetApi = () => {
 export const useUpdateAssetApi = (id: number) => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: async (assetData: Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>): Promise<Asset> => {
+    mutationFn: async (assetData: AssetInput): Promise<Asset> => {
       const response = await api.put(endpoints.updateAsset(id), assetData)
       return response.data
     },

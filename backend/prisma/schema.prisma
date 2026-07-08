@@ -24,7 +24,7 @@ model User {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  assets Asset[]
+  assetAssignments AssetAssignment[]
 }
 
 model AssetCategory {
@@ -42,18 +42,34 @@ model Asset {
   description    String?
   type           String?
   price          Float?
+  quantity       Int?
   purchaseDate   DateTime?
   modelNumber    String?
   specifications String?
   imageUrl       String?
-  assignedToId   Int?
   categoryId     Int
   vendorId       Int
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   vendor         vendor        @relation(fields: [vendorId], references: [id])
   category       AssetCategory @relation(fields: [categoryId], references: [id])
-  assignedTo     User?         @relation(fields: [assignedToId], references: [id])
+
+  assignments AssetAssignment[]
+}
+
+model AssetAssignment {
+  id         Int       @id @default(autoincrement())
+  assetId    Int
+  userId     Int
+  assignedAt DateTime  @default(now())
+  returnedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  asset Asset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@unique([assetId, userId])
 }
 
 model vendor {

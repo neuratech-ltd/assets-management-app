@@ -7,9 +7,9 @@ import { useForm } from 'react-hook-form'
 import { useParams, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { useGetUserByIdApi, useCreateUserApi, useUpdateUserApi } from '@/services/react-query/hooks/useUsersApi'
-import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field'
-import { Input } from '../ui/input'
-import { Asset } from '@/lib/types'
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
 
 const schema = yup.object({
   fullName: yup.string().required('Full name is required'),
@@ -18,21 +18,6 @@ const schema = yup.object({
   employeeId: yup.string().nullable(),
   joiningDate: yup.date().nullable(),
   password: yup.string().notRequired(),
-  assets: yup.array().of(
-    yup.object({
-      id: yup.number().required(),
-      name: yup.string().required(),
-      type: yup.string().nullable(),
-      price: yup.number().nullable(),
-      purchaseDate: yup.date().nullable(),
-      modelNumber: yup.string().nullable(),
-      specifications: yup.string().nullable(),
-      imageUrl: yup.string().nullable(),
-      assignedToId: yup.number().nullable(),
-      categoryId: yup.number().required(),
-      vendorId: yup.number().required(),
-    }),
-  ),
 })
 
 type UserFormValues = {
@@ -42,7 +27,6 @@ type UserFormValues = {
   employeeId?: string | null
   joiningDate?: Date | null
   password?: string
-  assets?: Asset[]
 }
 
 const inputClass = 'h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-2.5 py-1 text-base shadow-xs'
@@ -59,11 +43,10 @@ const UserForm = () => {
   const { reset, register, handleSubmit, formState } = useForm<UserFormValues>({
     // @ts-ignore
     resolver: yupResolver(schema),
-
     defaultValues: { fullName: '', email: '', designation: '', employeeId: '', joiningDate: null, password: '' },
   })
 
-  const assignedAssets = user?.assets ?? []
+  const activeAssignments = (user?.assetAssignments ?? []).filter((a) => !a.returnedAt)
 
   useEffect(() => {
     if (user) {
@@ -74,7 +57,6 @@ const UserForm = () => {
         employeeId: user.employeeId ?? '',
         joiningDate: user.joiningDate ? new Date(user.joiningDate) : null,
         password: '',
-        assets: user.assets ?? [],
       })
     }
   }, [user, reset])
@@ -159,12 +141,13 @@ const UserForm = () => {
         </Field>
         <Field>
           <FieldLabel className="block text-sm font-medium">Assigned assets</FieldLabel>
-          {assignedAssets.length > 0 ? (
+          {activeAssignments.length > 0 ? (
             <div className="flex flex-row flex-wrap gap-2">
-              {assignedAssets.map((asset) => (
-                <div key={asset.id} className="border rounded-md p-4">
-                  <h3 className="font-semibold">{asset.name}</h3>
-                  <p className="text-sm text-muted-foreground">{asset.description}</p>
+              {activeAssignments.map((assignment) => (
+                <div key={assignment.id} className="border rounded-md p-4">
+                  <h3 className="font-semibold">{assignment.asset?.name}</h3>
+                  <p className="text-sm text-muted-foreground">{assignment.asset?.description}</p>
+                  <Badge>Assigned at: {new Date(assignment.assignedAt).toLocaleDateString()}</Badge>
                 </div>
               ))}
             </div>
