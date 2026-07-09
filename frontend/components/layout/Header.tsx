@@ -8,7 +8,7 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
   return (
-    <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+    <header className="flex rounded-md fixed z-10 bg-white w-full h-14 shrink-0 items-center gap-2 border-b px-4 shadow-sm">
       <SidebarTrigger className="-ml-1" />
       <h1 className="text-md font-medium">{title}</h1>
     </header>

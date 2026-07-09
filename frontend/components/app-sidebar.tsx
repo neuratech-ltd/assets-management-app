@@ -29,7 +29,7 @@ export function AppSidebar() {
   const me = useMeApi()
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar variant="floating" className="bg-muted" collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
