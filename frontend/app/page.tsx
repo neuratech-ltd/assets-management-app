@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div className="relative flex flex-1 flex-col items-center justify-center overflow-hidden bg-white">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,theme(colors.slate.700/0.3)_1px,transparent_1px),linear-gradient(to_bottom,theme(colors.slate.700/0.3)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_65%_55%_at_50%_45%,black_0%,transparent_75%)] [-webkit-mask-image:radial-gradient(ellipse_65%_55%_at_50%_45%,black_0%,transparent_75%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,theme(colors.slate.700/0.15)_0.5px,transparent_1px),linear-gradient(to_bottom,theme(colors.slate.700/0.15)_0.5px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_65%_55%_at_50%_45%,black_0%,transparent_75%)] [-webkit-mask-image:radial-gradient(ellipse_65%_55%_at_50%_45%,black_0%,transparent_75%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,theme(colors.indigo.500/0.12),transparent_60%)]" />
       <main className="relative z-10 flex w-full max-w-md flex-col items-center px-6 text-center">
         <div className="mb-8 flex items-center gap-2 rounded-full border border-gray-300  px-3 py-1 font-mono text-xs uppercase tracking-widest text-black/70 backdrop-blur">
